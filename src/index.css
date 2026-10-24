@@ -1,0 +1,341 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ------------------------------------------------------------------
+   Paper Tech design tokens. A neutral graphite palette; the only
+   colour is the orange-to-blue gradient of the pinwheel logo.
+------------------------------------------------------------------- */
+:root {
+  --canvas: #ffffff;
+  --sidebar: #f8f8f7;
+  --surface: #ffffff;
+  --sunken: #f3f3f1;
+  --panel: #ececea;
+  --line: #e3e3e0;
+  --line-soft: #ececea;
+  --ink: #1d1d1f;
+  --muted: #66666b;
+  --faint: #8e8e93;
+  --accent: #26262a;
+  --accent-hover: #111113;
+  --accent-soft: #ededeb;
+  --accent-line: #cdcdc9;
+  --on-accent: #ffffff;
+  --success: #2f6b4f;
+  --success-soft: #e6f0ea;
+  --warn: #9a5b13;
+  --warn-soft: #fbf0df;
+  --danger: #b4322b;
+  --danger-soft: #fbe9e7;
+  --navy: #1f1f22;
+  --brand-a: #ee8433;
+  --brand-b: #2415ef;
+  --shadow: 0 1px 2px rgb(20 20 22 / 5%), 0 8px 24px rgb(20 20 22 / 6%);
+  --shadow-lg: 0 24px 80px rgb(20 20 22 / 16%);
+  color-scheme: light;
+}
+
+.dark {
+  --canvas: #1c1c1e;
+  --sidebar: #171719;
+  --surface: #232326;
+  --sunken: #2a2a2d;
+  --panel: #2c2c30;
+  --line: #36363a;
+  --line-soft: #2e2e32;
+  --ink: #ececee;
+  --muted: #a3a3aa;
+  --faint: #7c7c84;
+  --accent: #e8e8ec;
+  --accent-hover: #ffffff;
+  --accent-soft: #303034;
+  --accent-line: #4a4a50;
+  --on-accent: #18181b;
+  --success: #7cc4a0;
+  --success-soft: #1b2e24;
+  --warn: #e3b26c;
+  --warn-soft: #33281a;
+  --danger: #ef8a83;
+  --danger-soft: #3a1f1d;
+  --navy: #0f0f11;
+  --brand-a: #f59a4f;
+  --brand-b: #5a4dff;
+  --shadow: 0 1px 2px rgb(0 0 0 / 30%), 0 8px 24px rgb(0 0 0 / 25%);
+  --shadow-lg: 0 24px 80px rgb(0 0 0 / 50%);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-sidebar: var(--sidebar);
+  --color-surface: var(--surface);
+  --color-sunken: var(--sunken);
+  --color-panel: var(--panel);
+  --color-line: var(--line);
+  --color-line-soft: var(--line-soft);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-line: var(--accent-line);
+  --color-on-accent: var(--on-accent);
+  --color-brand-a: var(--brand-a);
+  --color-brand-b: var(--brand-b);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-navy: var(--navy);
+  --font-sans: "Inter Variable", Inter, ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --shadow-card: var(--shadow);
+  --shadow-pop: var(--shadow-lg);
+}
+
+@layer base {
+  html {
+    background: var(--canvas);
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    min-width: 320px;
+    min-height: 100dvh;
+    color: var(--ink);
+    background: var(--canvas);
+    font-family: var(--font-sans);
+    font-feature-settings: "cv11", "ss01";
+  }
+  button {
+    cursor: pointer;
+  }
+  button:disabled {
+    cursor: not-allowed;
+  }
+  ::selection {
+    background: var(--accent-soft);
+    color: var(--ink);
+  }
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+}
+
+#root {
+  min-height: 100dvh;
+}
+
+/* Small typographic helpers used across screens */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.display {
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+}
+
+.scroll-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
+}
+
+/* Rich text: AI answers and the document editor */
+.prose-orbit {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--ink);
+}
+.prose-orbit > * + * {
+  margin-top: 0.8em;
+}
+.prose-orbit h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+.prose-orbit h2 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.3;
+  margin-top: 1.4em;
+}
+.prose-orbit h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-top: 1.2em;
+}
+.prose-orbit ul {
+  list-style: disc;
+  padding-left: 1.3em;
+}
+.prose-orbit ol {
+  list-style: decimal;
+  padding-left: 1.3em;
+}
+.prose-orbit li + li {
+  margin-top: 0.3em;
+}
+.prose-orbit a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.prose-orbit blockquote {
+  border-left: 3px solid var(--accent);
+  background: var(--accent-soft);
+  padding: 0.7em 1em;
+  color: var(--ink);
+  border-radius: 0 6px 6px 0;
+}
+.prose-orbit code {
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+  background: var(--sunken);
+  border: 1px solid var(--line-soft);
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+}
+.prose-orbit pre {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  background: var(--sunken);
+  border: 1px solid var(--line);
+  padding: 12px 14px;
+  border-radius: 8px;
+  overflow-x: auto;
+}
+.prose-orbit pre code {
+  background: none;
+  border: 0;
+  padding: 0;
+}
+.prose-orbit table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.prose-orbit th,
+.prose-orbit td {
+  border-bottom: 1px solid var(--line);
+  padding: 6px 8px;
+  text-align: left;
+}
+.prose-orbit .cite {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--accent);
+  vertical-align: 1px;
+  cursor: pointer;
+}
+.prose-orbit hr {
+  border-color: var(--line);
+}
+
+.editor-doc:focus {
+  outline: none;
+}
+.editor-doc:empty::before {
+  content: attr(data-placeholder);
+  color: var(--faint);
+}
+
+/* Motion */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes orbit-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.rise {
+  animation: rise 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.fade {
+  animation: fade 200ms ease both;
+}
+.spin-slow {
+  animation: orbit-spin 40s linear infinite;
+}
+.caret::after {
+  content: "▍";
+  margin-left: 1px;
+  color: var(--accent);
+  animation: blink 1s steps(1) infinite;
+}
+.typing-dot {
+  animation: pulse-dot 1.2s ease-in-out infinite;
+}
+.typing-dot:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.typing-dot:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise,
+  .fade,
+  .spin-slow {
+    animation: none;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: white;
+  }
+}
+
+/* Brand gradient (from the pinwheel logo) */
+.brand-gradient {
+  background-image: linear-gradient(115deg, var(--brand-a), var(--brand-b));
+}
+.brand-text {
+  background-image: linear-gradient(100deg, var(--brand-a), var(--brand-b));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}

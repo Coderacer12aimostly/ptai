@@ -1,0 +1,45 @@
+# One-click deploy on Render: New → Blueprint → pick this repo.
+services:
+  - type: web
+    name: paper-tech-ai
+    runtime: node
+    plan: free
+    buildCommand: npm install -g pnpm && pnpm install --frozen-lockfile && pnpm build
+    startCommand: node server/index.mjs
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      # The AI runs on each visitor's device — no key needed.
+      # Optional cloud backup for devices without WebGPU (leave blank to skip):
+      #   LLM_API_KEY       free Meta Llama 3.3 70B via Groq (console.groq.com → API Keys)
+      #   ANTHROPIC_API_KEY Claude (paid, console.anthropic.com)
+      - key: LLM_API_KEY
+        sync: false
+      - key: LLM_MODEL
+        value: llama-3.3-70b-versatile
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      # Paper Tech 1 fine-tunes (optional): your Hugging Face username after running model/Train_Paper_Tech_1.ipynb,
+      # and which ones you trained, comma-separated (any of Mini, Renat, Wave).
+      - key: VITE_PAPERTECH1_HF_USER
+        sync: false
+      - key: VITE_PAPERTECH1_TUNED
+        value: Mini
+      # Web search (optional): without a key, search uses free Wikipedia + DuckDuckGo instant answers.
+      # For full web results add ONE of these (both have free tiers): tavily.com or brave.com/search/api
+      - key: TAVILY_API_KEY
+        sync: false
+      - key: BRAVE_API_KEY
+        sync: false
+      - key: RATE_LIMIT
+        value: "30"
+      # Google Workspace (optional) — see README → "Connect Google Workspace"
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      - key: APP_URL
+        sync: false # e.g. https://paper-tech-ai.onrender.com
+      - key: SESSION_SECRET
+        generateValue: true

@@ -1,0 +1,17 @@
+{
+  "title": "Paper Tech AI — private, on-device AI for research and writing",
+  "description": "Paper Tech AI runs right in your browser, so your work stays on your device. Ask questions grounded in your sources, draft with an AI writing partner, and build assistants for every kind of thinking.",
+  "robots": {
+    "index": true
+  },
+  "icons": {
+    "icon": "/favicon.svg"
+  },
+  "customScripts": {
+    "headEnd": "<link rel=\"manifest\" href=\"/manifest.webmanifest\"><meta name=\"theme-color\" content=\"#1f1f22\"><link rel=\"apple-touch-icon\" href=\"/icon-192.png\">"
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
